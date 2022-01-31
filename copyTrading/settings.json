@@ -1,0 +1,19 @@
+{
+  	"binance": {
+		"binance_info": {
+			"key": "binance_key",
+			"secret": "binance_secret"
+		},
+		"spot": ["ETH", "BTC", "DOT"],
+		"symbols": {
+			"ETHBTC": {
+				"buy": "BTC",
+				"sell": "ETH"
+			},
+			"DOTBTC": {
+				"buy": "BTC",
+				"sell": "DOT"
+			}
+		}
+    }
+}

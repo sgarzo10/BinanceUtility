@@ -1,0 +1,14 @@
+{
+  	"binance": {
+		"binance_info": {
+			"key": "key_binance",
+			"secret": "secret_binance"
+		},
+		"symbol": "USTBUSD",
+        "quantity": 8000,
+        "buy_price": 1.0017,
+        "sell_price": 1.0018,
+        "freq_update": 5,
+        "freq_log": 50
+    }
+}
