@@ -1,18 +1,9 @@
-from subprocess import PIPE, Popen
-from os import system
 from urllib.request import urlopen, Request
-from logging import info, exception
-from json import loads, dumps
 from json import loads, load
 from hmac import new
 from hashlib import sha256
 from time import sleep
 from logging import basicConfig, INFO, exception, info
-from tabulate import tabulate
-from csv import writer
-from matplotlib.pyplot import pie, legend, suptitle, axis, figure, close, cla
-from matplotlib.backends.backend_pdf import PdfPages
-from numpy import array
 
 
 class Config:

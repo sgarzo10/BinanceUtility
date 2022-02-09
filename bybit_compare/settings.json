@@ -1,0 +1,9 @@
+{
+  	"binance": {
+		"binance_info": {
+			"key": "binance_key",
+			"secret": "binance_secret"
+		},
+		"symbol": "BTCUSDT"
+    }
+}
