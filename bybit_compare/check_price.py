@@ -7,6 +7,41 @@ from threading import Thread
 from time import sleep
 
 
+class FatherThread(Thread):
+
+    def __init__(self, index):
+        Thread.__init__(self)
+        self.index = index
+
+    def run(self):
+        old_price_binance = 0
+        old_price_bybit = 0
+        diff_binance = 0
+        diff_bybit = 0
+        thread_struct = {
+            "binance": "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT",
+            "bybit": "https://api.bybit.com/v2/public/tickers?symbol=BTCUSD"
+        }
+        while True:
+            threads = []
+            for key, value in thread_struct.items():
+                thread = MyThread(value, key)
+                thread.setDaemon(True)
+                threads.append(thread)
+                thread.start()
+            for t in threads:
+                t.join()
+            if old_price_binance != 0:
+                diff_binance = round(threads[0].price - old_price_binance, 2)
+            old_price_binance = threads[0].price
+            if old_price_bybit != 0:
+                diff_bybit = threads[1].price - old_price_bybit
+            old_price_bybit = threads[1].price
+            info(
+                f'Thread {self.index} - {threads[0].price} {diff_binance} {threads[1].price} {diff_bybit} | {round(threads[0].price - threads[1].price, 2)} | {round(abs(diff_binance) - abs(diff_bybit), 2)}')
+            sleep(29.6)
+
+
 class MyThread (Thread):
 
     def __init__(self, url, exchange):
@@ -70,32 +105,16 @@ def main():
         format="%(asctime)s|%(message)s",
         level=INFO)
     Config()
-    old_price_binance = 0
-    old_price_bybit = 0
-    diff_binance = 0
-    diff_bybit = 0
-    thread_struct = {
-        "binance": "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT",
-        "bybit": "https://api.bybit.com/v2/public/tickers?symbol=BTCUSD"
-    }
     info("BINANCE PREZZO - DIFF - BYBIT PREZZO - DIFF - SPREAD - ABS VALUE DIFF")
-    while True:
-        threads = []
-        for key, value in thread_struct.items():
-            thread = MyThread(value, key)
-            thread.setDaemon(True)
-            threads.append(thread)
-            thread.start()
-        for t in threads:
-            t.join()
-        if old_price_binance != 0:
-            diff_binance = round(threads[0].price - old_price_binance, 2)
-        old_price_binance = threads[0].price
-        if old_price_bybit != 0:
-            diff_bybit = threads[1].price - old_price_bybit
-        old_price_bybit = threads[1].price
-        info(f'{threads[0].price} {diff_binance} {threads[1].price} {diff_bybit} | {round(threads[0].price - threads[1].price, 2)} | {round(abs(diff_binance) - abs(diff_bybit), 2)}')
-        sleep(0.7)
+    threads = []
+    for i in range(30):
+        thread = FatherThread(i)
+        thread.setDaemon(True)
+        threads.append(thread)
+        thread.start()
+        sleep(1)
+    for t in threads:
+        t.join()
 
 
 if __name__ == "__main__":
