@@ -1,7 +1,11 @@
 /__pycache__/*
 .DS_Store
 /arbitraggio_binance/.DS_Store
+/arbitraggio_binance/__pycache__/*
 /copy_trading/.DS_Store
+/copy_trading/__pycache__/*
 /bybit_compare/.DS_Store
-/make_trading/.DS_Store
+/bybit_compare/__pycache__/*
 /bybit_compare/check.log
+/make_trading/.DS_Store
+/make_trading/__pycache__/*
